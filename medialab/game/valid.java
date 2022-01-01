@@ -14,7 +14,8 @@ public class valid {
 public void run(String[] bookWords){
     game game = new game();
     game.init(bookWords);
-    game.randomselect();
+//    game.randomselect();
+    game.selectSpecific("DELIGHT");
     System.out.println("My selected word is: "+game.getWord());
     game.initializePropabilities();
     System.out.println(game.selectedWords);
@@ -25,18 +26,26 @@ public void run(String[] bookWords){
         System.out.println(key_char + key_char_place + " " + value);
     }
     visuallize vis = new visuallize();
-    while((charachters_found >= 0 && charachters_found <= game.getLen()) || lifes>0){
+    while((charachters_found >= 0 && charachters_found < game.getLen()) && lifes>0){
+
         System.out.println("Give me character...");
         Scanner sc = new Scanner(System.in);
         char c = sc.next().charAt(0);
-        System.out.println("You gave: "+ c+ " for the "+charachters_found+" character");
-        int p = game.refactorPoint(c, charachters_found);
+        System.out.println("You gave: "+ c+ " for the "+getCharachters_found()+" character");
+        int p = game.refactorPoint(c, getCharachters_found());
         if(p>0){
             charachters_found+=1;
             points+=p;
+            vis.getPointsWin(points, p, lifes);
+        }
+        else{
+            lifes-=1;
+            vis.getPointsLose(lifes);
         }
     }
 }
-
+public int getCharachters_found(){
+        return charachters_found;
+}
 
 }

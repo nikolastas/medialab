@@ -12,11 +12,14 @@ public class game{
     private int points;
     private String[] words;// read from validBook
     public List<String> selectedWords = new ArrayList<String>();
-    public HashMap< object, Float> propability = new HashMap<object, Float>();
+    public HashMap< object , Float> propability = new HashMap<>();
     public void randomselect(){
         Random rand = new Random();
         int random_int = rand.nextInt(leng_of_dict);
         word=words[random_int];
+    }
+    public void selectSpecific(String word){
+        this.word = word;
     }
     public void init(String[] w){
         words =w;
@@ -35,8 +38,8 @@ public class game{
         }
         for (int i=0; i<word.length() ; i++){ //https://stackoverflow.com/questions/196830/what-is-the-easiest-best-most-correct-way-to-iterate-through-the-characters-of-a
             char c = word.charAt(i);
-            object myobject = new object();
-            myobject.set(c, i);
+            object myobject = new object(c, i);
+//            myobject.set(c, i);
             propability.put(myobject, 0.0f);
             System.out.println("I have setted "+propability.get(myobject)+ " to:"+ myobject.getText()+myobject.getNumber());
             for(String s:selectedWords){
@@ -58,25 +61,29 @@ public class game{
         return word;
     }
     public int getLen(){
-        return leng_of_dict;
+        return word.length();
     }
     public int refactorPoint(char c, int position){
         int result= 0;
 
         if(word.charAt(position) == c){
-            object myobject = new object();
+            object o = new object(c, position);
 
-            myobject.set(c, position);
-            System.out.println("char is "+myobject.getText()+" position "+myobject.getNumber());
-            System.out.println("p= "+ propability.get(myobject));
-            result = points(propability.get(myobject));
+//            o.set(c, position);
+//            System.out.println("trying to access propability...");
+            result = points(this.propability.get(o));
+        }
+        else{
+            for(object obj : propability.keySet()){
+                if(obj.getTextChar() == c && obj.getNumberInt()==position){
+                    propability.remove(obj);
+                }
+            }
         }
 
         return result;
     }
-    public int points(Float f){
-        float n = f.floatValue();
-        System.out.println("propability is: "+n);
+    public int points(float n){
         if(n>= 0.6f){
             return 5;
         }
