@@ -43,6 +43,9 @@ public void run(String[] bookWords){
             vis.getPointsLose(lifes);
         }
     }
+    if(lifes<=0 ){
+        System.out.println("the selected word was "+ game.getWord());
+    }
 }
 public int getCharachters_found(){
         return charachters_found;

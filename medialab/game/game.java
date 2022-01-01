@@ -11,7 +11,7 @@ public class game{
     private String word;
     private int points;
     private String[] words;// read from validBook
-    public List<String> selectedWords = new ArrayList<String>();
+    public List<String> selectedWords = new ArrayList<>();
     public HashMap< object , Float> propability = new HashMap<>();
     public void randomselect(){
         Random rand = new Random();
@@ -26,16 +26,20 @@ public class game{
         leng_of_dict=w.length;
 
     }
-    public void initializePropabilities(){
+    public void initializePropabilities() {
 
         float value;
 
         //open file requirelectedWo
-        for(int i=0; i< words.length; i++){
-            if(word.length() == words[i].length() ){
-                selectedWords.add(words[i]); //https://www.codegrepper.com/code-examples/java/java+string+array+add+element
+        for (String s : words) {
+            if (word.length() == s.length()) {
+                selectedWords.add(s); //https://www.codegrepper.com/code-examples/java/java+string+array+add+element
             }
         }
+        calcPropabilities();
+    }
+    public void calcPropabilities(){
+        leng_of_dict=selectedWords.size();
         for (int i=0; i<word.length() ; i++){ //https://stackoverflow.com/questions/196830/what-is-the-easiest-best-most-correct-way-to-iterate-through-the-characters-of-a
             char c = word.charAt(i);
             object myobject = new object(c, i);
@@ -68,17 +72,17 @@ public class game{
 
         if(word.charAt(position) == c){
             object o = new object(c, position);
-
-//            o.set(c, position);
-//            System.out.println("trying to access propability...");
             result = points(this.propability.get(o));
         }
         else{
-            for(object obj : propability.keySet()){
-                if(obj.getTextChar() == c && obj.getNumberInt()==position){
-                    propability.remove(obj);
+            for(String w : words){
+                if(w.charAt(position) == c){
+                    selectedWords.remove(w);
                 }
+
             }
+            calcPropabilities();
+            System.out.println(selectedWords);
         }
 
         return result;
