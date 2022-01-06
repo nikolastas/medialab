@@ -28,7 +28,7 @@ public class game{
     public void initializePropabilities() {
 
         float value;
-
+        selectedWords= new ArrayList<>();
         //open file requirelectedWo
         for (String s : words) {
             if (word.length() == s.length()) {
@@ -74,7 +74,7 @@ public class game{
             result = points(this.propability.get(o));
         }
         else{
-            for(String w : words){
+            for(String w : selectedWords){
                 if(w.charAt(position) == c){
                     selectedWords.remove(w);
                 }

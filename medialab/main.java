@@ -10,10 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -22,12 +24,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class main extends Application {
-    public Pane tableView = new Pane() ;
+    public TableView  tableView ;
+    public HBox hbox ;
     public BorderPane pane = new BorderPane();
     public MenuItem start;
+    public static valid game = new valid();
     public static dictionary.chooseBook book = new dictionary.chooseBook();
     public static void main(String[] args){
         book.initializeDictionary();
+        game.initialize(book.words);
         launch(args);
 
 //      gui.app(args);
@@ -36,6 +41,23 @@ public class main extends Application {
 //        valid game = new valid();
 //        game.run(book.words);
     }
+    @FXML
+    private void initialize(){
+        tableView = new TableView<>();
+        TableColumn<UI.wordAndProp, String> nameColumn = new TableColumn<>("Character");
+        nameColumn.setMinWidth(50);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("character"));
+        TableColumn<UI.wordAndProp, Integer> placeColumn = new TableColumn<>("Place");
+        placeColumn.setMinWidth(50);
+        placeColumn.setCellValueFactory(new PropertyValueFactory<>("place"));
+        TableColumn<UI.wordAndProp, Float> propColumn = new TableColumn<>("Probability");
+        propColumn.setMinWidth(50);
+        propColumn.setCellValueFactory(new PropertyValueFactory<>("prop"));
+        tableView.setItems(getdata());
+        tableView.getColumns().addAll(nameColumn, placeColumn, propColumn);
+        hbox.getChildren().addAll(tableView);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = null;
@@ -47,15 +69,13 @@ public class main extends Application {
         primaryStage.setTitle("Medialab Hangman");
 
 //        tableView = this.tableView;
-        Label label1 = new Label();
-        label1.setText("new me ");
-        tableView.getChildren().add(label1);
-        pane.setCenter(tableView);
+
+
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
 
     }
-    public valid game = new valid();
+
     public void startGame(){
         game.initialize(book.words);
     }
