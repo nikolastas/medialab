@@ -1,7 +1,7 @@
 package dictionary;
-import java.util.Locale;
 import java.util.*;
 import java.io.*;
+
 public class validBook {
     public String replace (String word){
         return  word.replaceAll("[^a-zA-Z]", "");
@@ -19,51 +19,62 @@ public class validBook {
         }
         words = res;
     }
-    public boolean limitations(){
+    public boolean limitations() {
         int counter=0;
         List<String> res = new ArrayList<>() ;
+        Map<String, String> map = new HashMap<>();
+        try{
+            for(String word : words){
+                if (map.containsKey(word)){
 
-        Map<String, String> map = new HashMap<String, String>();
-        for(String word : words){
-            if (map.containsKey(word)){
+                    throw new InvalidCountExeception("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
 //                System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
-                continue;
-            }else {
-                if(word.length() < 6){
-                    System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
-                    continue;
+
+                }else {
+                    if(word.length() < 6){
+                        throw new InvalidRangeException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
+//                        System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
+
+                    }
+                    if(word.length() >= 9){
+                        counter++;
+                    }
+                    map.put(word,"yes");
+                    res.add(word);
+
                 }
-                if(word.length() >= 9){
-                    counter++;
-                }
-                map.put(word,"yes");
-                res.add(word);
+            }
+            if(map.size() < 20){
+                throw new UndersizeException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20 VALID WORDS");
+//                System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20 VALID WORDS");
 
             }
+            if(map.size()/5 > counter ){
+                throw new UnbalancedException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20% OF DICT VALID WORDS HAVE 9 LETTERS");
+//                System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20% OF DICT VALID WORDS HAVE 9 LETTERS");
+
+            }
+        }catch (Exception e){
+            System.err.println(e);
+            e.printStackTrace();
         }
-        if(map.size() < 20){
-            System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20 VALID WORDS");
-            return false;
-        }
-        if(map.size()/5 > counter ){
-            System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20% OF DICT VALID WORDS HAVE 9 LETTERS");
-            return false;
-        }
+
         String [] newWords = new String[res.size()];
         int c=0;
         for(String word: res){
             newWords[c]=word;
             c++;
         }
+
         words = newWords;
         return true;
     }
     public String getWords(){
-        String str="";
+        StringBuilder str= new StringBuilder();
         for (String s:words){
-            str=str+" "+s;
+            str.append(" ").append(s);
         }
-        return str;
+        return str.toString();
     }
     private String[] words;
     private String bookID;
