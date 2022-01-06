@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="pane"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main">
+   <top>
+      <VBox fx:id="vbox" prefHeight="69.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Application">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#startGame" text="Strat" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadDictionary" text="Load" />
+                        <MenuItem mnemonicParsing="false" onAction="#createDictionary" text="Create" />
+                        <MenuItem mnemonicParsing="false" onAction="#exitapp" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Details">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Dictionary" />
+                        <MenuItem mnemonicParsing="false" text="Rounds" />
+                        <MenuItem mnemonicParsing="false" text="Solution" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Words available in dictionary:" textAlignment="JUSTIFY" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Correct Characters Found:" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Points:" wrappingWidth="110.98307228088379" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <HBox prefHeight="255.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="animatorAndWord" prefHeight="250.0" prefWidth="291.0" />
+            <Pane fx:id="tableView" prefHeight="252.0" prefWidth="346.0" />
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ChoiceBox prefWidth="150.0" />
+            <ChoiceBox prefWidth="150.0" />
+            <Button mnemonicParsing="false" text="Check" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

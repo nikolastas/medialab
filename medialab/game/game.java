@@ -1,9 +1,8 @@
 package game;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
-import java.util.*;
-import java.lang.Integer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class game{
@@ -41,24 +40,24 @@ public class game{
     public void calcPropabilities(){
         leng_of_dict=selectedWords.size();
         for (int i=0; i<word.length() ; i++){ //https://stackoverflow.com/questions/196830/what-is-the-easiest-best-most-correct-way-to-iterate-through-the-characters-of-a
-            char c = word.charAt(i);
-            object myobject = new object(c, i);
+//            char c = word.charAt(i);
+//            object myobject = new object(c, i);
 //            myobject.set(c, i);
-            propability.put(myobject, 0.0f);
-            System.out.println("I have setted "+propability.get(myobject)+ " to:"+ myobject.getText()+myobject.getNumber());
+//            propability.put(myobject, 0.0f);
+//            System.out.println("I have setted "+propability.get(myobject)+ " to:"+ myobject.getText()+myobject.getNumber());
             for(String s:selectedWords){
-                char c1 = s.charAt(i);
-                if(c == c1){
-                    myobject.set(c, i);
-//                    value =propability.get(myobject);
-                    propability.put(myobject, propability.get(myobject)+ 1.0f );
+                char c = s.charAt(i);
+                object myobject = new object(c, i);
+                myobject.set(c, i);
+
+                if (propability.get(myobject)!= null){
+                    propability.put(myobject, propability.get(myobject)+ (1.0f )/((float) leng_of_dict) );
                 }
+                else{
+                    propability.put(myobject,  (1.0f )/((float) leng_of_dict) );
+                }
+
             }
-        }
-        for (object o: propability.keySet()) {
-            float p = (float) leng_of_dict;
-            System.out.println(p);
-            propability.put(o, propability.get(o)/p );
         }
     }
     public String getWord(){

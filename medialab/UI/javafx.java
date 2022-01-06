@@ -18,7 +18,7 @@ import java.util.List;
 public class javafx extends Application  {
 
     Stage window;
-//    Scene scene1, scene2;
+    //    Scene scene1, scene2;
     Button button;
     public void app(String[] args) {
         launch(args);

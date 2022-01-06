@@ -27,13 +27,16 @@ public class validBook {
             for(String word : words){
                 if (map.containsKey(word)){
 
-                    throw new InvalidCountExeception("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
+//                    throw new InvalidCountExeception("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
 //                System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
+//                    if this would throw error the program would stop :(
 
                 }else {
                     if(word.length() < 6){
-                        throw new InvalidRangeException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
+                        continue;
+//                        throw new InvalidRangeException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
 //                        System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
+//                        if this would throw error the program would stop :(
 
                     }
                     if(word.length() >= 9){
@@ -45,6 +48,7 @@ public class validBook {
                 }
             }
             if(map.size() < 20){
+//                continue;
                 throw new UndersizeException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20 VALID WORDS");
 //                System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20 VALID WORDS");
 

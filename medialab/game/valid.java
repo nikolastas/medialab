@@ -1,21 +1,23 @@
 package game;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class valid {
     private int lifes;
     private int charachters_found;
     private int points;
+    private game game = new game();
     public valid(){
     this.lifes=6;
     this.charachters_found=0;
     this.points=0;
 }
-public void run(String[] bookWords){
-    game game = new game();
+public void initialize(String[] bookWords){
     game.init(bookWords);
-//    game.randomselect();
-    game.selectSpecific("DELIGHT");
+    game.randomselect();
+//    game.selectSpecific("DELIGHT");
     System.out.println("My selected word is: "+game.getWord());
     game.initializePropabilities();
     System.out.println(game.selectedWords);
@@ -25,6 +27,8 @@ public void run(String[] bookWords){
         String value = game.propability.get(o).toString();
         System.out.println(key_char + key_char_place + " " + value);
     }
+}
+public void run(){
     visuallize vis = new visuallize();
     while((charachters_found >= 0 && charachters_found < game.getLen()) && lifes>0){
 
@@ -46,6 +50,12 @@ public void run(String[] bookWords){
     if(lifes<=0 ){
         System.out.println("the selected word was "+ game.getWord());
     }
+}
+public HashMap< object , Float> getProp(){
+        return game.propability;
+}
+public List<String> getSelectedWords(){
+        return game.selectedWords;
 }
 public int getCharachters_found(){
         return charachters_found;

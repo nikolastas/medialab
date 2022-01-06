@@ -2,7 +2,7 @@ package dictionary;
 import java.util.*;
 
 public class bookIdScanner {
-    String ID;
+    private String ID;
     public void IdScanner(){
         Scanner myObj = new Scanner(System.in);
         String bookID = myObj.nextLine();  // Read user input
@@ -10,7 +10,9 @@ public class bookIdScanner {
         ID = bookID;
         
     }
-    public void print(){
+    public String getID(){ return ID ;}
+    public void setID(String a){ID = a;}
+    public void printID(){
         System.out.println(ID);
     }
 }
