@@ -28,15 +28,15 @@ public void initialize(String[] bookWords){
         System.out.println(key_char + key_char_place + " " + value);
     }
 }
-public void run(){
+public void run(char c, int n){
     visuallize vis = new visuallize();
-    while((charachters_found >= 0 && charachters_found < game.getLen()) && lifes>0){
+    if((charachters_found >= 0 && charachters_found < game.getLen()) && lifes>0){
 
         System.out.println("Give me character...");
         Scanner sc = new Scanner(System.in);
-        char c = sc.next().charAt(0);
-        System.out.println("You gave: "+ c+ " for the "+getCharachters_found()+" character");
-        int p = game.refactorPoint(c, getCharachters_found());
+
+        System.out.println("You gave: "+ c+ " for the "+n+" character");
+        int p = game.refactorPoint(c, n);
         if(p>0){
             charachters_found+=1;
             points+=p;
@@ -60,5 +60,15 @@ public List<String> getSelectedWords(){
 public int getCharachters_found(){
         return charachters_found;
 }
+public int getPoints(){
+        return this.points;
+}
+public int getLifes(){
+        return this.lifes;
+}
+public String getWord() {
+    return game.getWord();
+}
+
 
 }

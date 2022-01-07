@@ -1,9 +1,6 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class game{
     private Integer leng_of_dict;
@@ -74,12 +71,19 @@ public class game{
             result = points(this.propability.get(o));
         }
         else{
-            for(String w : selectedWords){
-                if(w.charAt(position) == c){
-                    selectedWords.remove(w);
+            for (Iterator<String> iterator = selectedWords.iterator(); iterator.hasNext(); ) {
+                char value = iterator.next().charAt(position);
+                if (value==c) {
+                    iterator.remove();
                 }
-
             }
+//            for(int i=0;i){
+//                System.out.println("word= "+w +" position= "+position);
+//                if(w.charAt(position) == c){
+//                    selectedWords.remove(w);
+//                }
+//                  THROWS A JAVA ERROR
+//            }
             calcPropabilities();
             System.out.println(selectedWords);
         }

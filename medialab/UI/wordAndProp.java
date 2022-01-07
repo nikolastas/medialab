@@ -5,18 +5,19 @@ public class wordAndProp {
     private int place;
     private float prop;
 
-    public wordAndProp characterAndPlace(){
+    public wordAndProp(char c, int i, float v) {
+        this.character=c;
+        this.prop=v;
+        this.place=i;
+    }
+
+    public wordAndProp (){
         this.character=0;
         this.place=-1;
         this.prop=0;
-        return null;
+
     }
-    public wordAndProp characterAndPlace(char c, int i, float f){
-        this.character=c;
-        this.prop=f;
-        this.place=i;
-        return null;
-    }
+
     public void show(){
 
     }
