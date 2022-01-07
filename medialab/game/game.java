@@ -69,6 +69,14 @@ public class game{
         if(word.charAt(position) == c){
             object o = new object(c, position);
             result = points(this.propability.get(o));
+            for (Iterator<String> iterator = selectedWords.iterator(); iterator.hasNext(); ) {
+                char value = iterator.next().charAt(position);
+                if (value!=c) {
+                    iterator.remove();
+                }
+            }
+            this.propability.clear();
+            calcPropabilities();
         }
         else{
             for (Iterator<String> iterator = selectedWords.iterator(); iterator.hasNext(); ) {
@@ -84,6 +92,7 @@ public class game{
 //                }
 //                  THROWS A JAVA ERROR
 //            }
+            this.propability.clear();
             calcPropabilities();
             System.out.println(selectedWords);
         }
