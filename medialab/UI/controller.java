@@ -35,7 +35,9 @@ public class controller implements Initializable {
     public Button checkPlaceAndLetter;
     public HBox hbox ;
     public BorderPane pane = new BorderPane();
-
+    @FXML
+    public Label wrongWords;
+    private String wrongCharacters;
     public static valid game = new valid();
     public static dictionary.chooseBook book = new dictionary.chooseBook();
     @FXML
@@ -47,6 +49,10 @@ public class controller implements Initializable {
         game = new valid();
         game.initialize(book.words);
         gamePoints.setText(String.valueOf(game.getPoints()));
+        wrongCharacters="";
+        wrongWords.setText(wrongCharacters);
+        valueOFWordShow = game.getWord().replaceAll("[a-zA-Z0-9]", "_ ");
+        wordShow.setText(valueOFWordShow);
         recalc();
 
     }
@@ -57,8 +63,14 @@ public class controller implements Initializable {
         UI.createDictionaryBox creator = new createDictionaryBox();
         String s = creator.open("Dictionary name", "Type your Book ID to create a dictionary");
         System.out.println(s);
-        book.createDictionary(s);
+        if(s != null) {
+            book.createDictionary(s);
+        }
+        else{
+            System.out.println("I cant create this dictionary you gave me NULL");
+        }
     }
+
     public void loadDictionary(){
         UI.chooseDictionaryBox selector = new chooseDictionaryBox();
         String s = selector.open("Dictionary name", "Please type in your dictionary ID");
@@ -88,6 +100,8 @@ public class controller implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resource){
+        wrongCharacters="";
+        wrongWords.setText(wrongCharacters);
         book.initializeDictionary();
         game.initialize(book.words);
         valueOFWordShow = game.getWord().replaceAll("[a-zA-Z0-9]", "_ ");
@@ -145,17 +159,26 @@ public class controller implements Initializable {
 
     public void checkPAndL(ActionEvent actionEvent) {
         Integer oldValuePoints= game.getPoints();
-        game.run(dropDownLetter.getValue(), dropDownPlace.getValue());
-        Integer newValuePoints = game.getPoints();
-        if(newValuePoints > oldValuePoints){
-            int n =dropDownPlace.getValue();
+        int n = dropDownPlace.getValue();
 
-            char[] tmp = valueOFWordShow.toCharArray();
-            tmp[2*n]=dropDownLetter.getValue();
-            valueOFWordShow = String.valueOf(tmp);
-
+        char[] tmp = valueOFWordShow.toCharArray();
+        if(tmp[2*n] == dropDownLetter.getValue()){
+            UI.AlertBox alertBox = new AlertBox();
+            alertBox.display("wrong Character!", "You have already selected this character for that place and it is right!");
         }
-        recalc();
+        else {
+            game.run(dropDownLetter.getValue(), dropDownPlace.getValue());
+            Integer newValuePoints = game.getPoints();
+            if (newValuePoints > oldValuePoints) {
+
+                tmp[2 * n] = dropDownLetter.getValue();
+                valueOFWordShow = String.valueOf(tmp);
+            } else {
+                wrongCharacters += "c[" + dropDownPlace.getValue() + "]!=" + dropDownLetter.getValue() + ", ";
+                wrongWords.setText(wrongCharacters);
+            }
+            recalc();
+        }
 
     }
     private void recalc(){
@@ -169,7 +192,8 @@ public class controller implements Initializable {
     }
 
     public void chooseDropDownLetter(ActionEvent event) {
-        dropDownLetter = new ChoiceBox<>();
+        System.out.println(dropDownPlace.getValue());
+        dropDownLetter.getItems().clear();
 
         Set<Character> letters_Set = new HashSet<>();
 
@@ -187,7 +211,8 @@ public class controller implements Initializable {
     }
 
     public void chooseDropDownPlace(ActionEvent event) {
-        dropDownPlace.getItems().removeAll();
+        System.out.println(dropDownLetter.getValue());
+        dropDownPlace.getItems().clear();
 
         char w = dropDownLetter.getValue();
         Set<Integer> numbers_Set = new HashSet<>();
@@ -203,5 +228,17 @@ public class controller implements Initializable {
         }
         dropDownPlace.getItems().addAll(numbers_Set);
 
+    }
+
+    public void showDictionary(ActionEvent event) {
+        UI.showDataBox box = new showDataBox();
+
+        box.display("Word Details", " ",book., 1);
+    }
+
+    public void showRounds(ActionEvent event) {
+    }
+
+    public void showSolution(ActionEvent event) {
     }
 }

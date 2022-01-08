@@ -17,7 +17,7 @@ public class createDictionaryBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
-
+        window.setOnCloseRequest(e -> window.close());
         Label label = new Label();
         label.setText(message);
 

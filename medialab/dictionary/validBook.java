@@ -19,8 +19,10 @@ public class validBook {
         }
         words = res;
     }
+    public List<Float> propabilites;
     public boolean limitations() {
         int counter=0;
+        propabilites = Arrays.asList(new Float[]{0f, 0f, 0f});
         List<String> res = new ArrayList<>() ;
         Map<String, String> map = new HashMap<>();
         try{
@@ -38,6 +40,15 @@ public class validBook {
 //                        System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
 //                        if this would throw error the program would stop :(
 
+                    }
+                    if(word.length() == 6){
+                        propabilites.set(0, propabilites.get(0)+1f);
+                    }
+                    else if(word.length()<=9){
+                        propabilites.set(1,propabilites.get(1)+1f);
+                    }
+                    else{
+                        propabilites.set(2,propabilites.get(2)+1f);
                     }
                     if(word.length() >= 9){
                         counter++;
@@ -69,7 +80,9 @@ public class validBook {
             newWords[c]=word;
             c++;
         }
-
+        propabilites.set(0, propabilites.get(0)/((float) c));
+        propabilites.set(1, propabilites.get(1)/((float) c));
+        propabilites.set(2, propabilites.get(2)/((float) c));
         words = newWords;
         return true;
     }
