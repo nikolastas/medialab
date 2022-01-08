@@ -25,7 +25,7 @@ public void initialize(String[] bookWords){
         String key_char = o.getText();
         String key_char_place = o.getNumber();
         String value = game.propability.get(o).toString();
-        System.out.println(key_char + key_char_place + " " + value);
+//        System.out.println(key_char + key_char_place + " " + value);
     }
 }
 public void run(char c, int n){

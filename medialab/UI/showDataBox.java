@@ -41,18 +41,36 @@ public class showDataBox {
                 Label val2 = new Label(String.valueOf(Data.get(2)));
                 layout.getChildren().addAll(label, sizeletterwords, val0, nineletterwords, val1, tenletterwords, val2, cButton );
             case 0:
-                Label superlabel = new Label();
+
                 Path path = Paths.get("./Logs/log.txt");
 //        ArrayList<String> lines = new ArrayList<>();
                 try{
+
                     List<String> lines = Files.readAllLines(path);
-                    superlabel.setText(String.valueOf(lines));
+                    int sizeOfLabel =10;
+                    if(lines.size()>=20){
+                        sizeOfLabel= 5;
+                    }
+                    else{
+                        sizeOfLabel= lines.size();
+                    }
+                    ArrayList<Label> superlabel = new ArrayList<>();
+                    System.out.println("size = "+sizeOfLabel);
+                    layout.getChildren().add(label);
+                    for(int i=0;i<sizeOfLabel;i++){
+                        Label tpm = new Label("Number of game: "+lines.get(i*4)+" Word chosen: "+lines.get((i*4+1))+" Winner of the game: "+lines.get((i*4+2)) +" Number of tries: "+ lines.get((i*4+3)));
+                        superlabel.add(tpm);
+
+                    }
+                    for(Label l:superlabel){
+                        layout.getChildren().add(l);
+                    }
 
                 }catch (Exception e){
                     System.out.println(e);
                     e.printStackTrace();
                 }
-                layout.getChildren().addAll(label, superlabel, cButton);
+                layout.getChildren().add( cButton);
 
         }
 

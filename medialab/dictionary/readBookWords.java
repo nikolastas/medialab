@@ -31,7 +31,7 @@ public class readBookWords {
 
             }
 
-            myReader.close();
+
 
 
         String [] newWords = new String[res.size()];
