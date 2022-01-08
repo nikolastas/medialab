@@ -69,6 +69,8 @@ public int getLifes(){
 public String getWord() {
     return game.getWord();
 }
-
+public void setLifes(Integer l){
+        this.lifes=l;
+}
 
 }

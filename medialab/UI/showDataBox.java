@@ -8,10 +8,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class showDataBox() {
+public class showDataBox {
     public void display(String title, String message, List Data, Integer type){
         Stage window = new Stage();
 
@@ -36,7 +39,20 @@ public class showDataBox() {
                 Label val1 = new Label(String.valueOf(Data.get(1)));
                 Label tenletterwords = new Label("Words with at least 10 letters: ");
                 Label val2 = new Label(String.valueOf(Data.get(2)));
-                layout.getChildren().addAll(label, sizeletterwords, val0, nineletterwords, val1, tenletterwords, val2 );
+                layout.getChildren().addAll(label, sizeletterwords, val0, nineletterwords, val1, tenletterwords, val2, cButton );
+            case 0:
+                Label superlabel = new Label();
+                Path path = Paths.get("./Logs/log.txt");
+//        ArrayList<String> lines = new ArrayList<>();
+                try{
+                    List<String> lines = Files.readAllLines(path);
+                    superlabel.setText(String.valueOf(lines));
+
+                }catch (Exception e){
+                    System.out.println(e);
+                    e.printStackTrace();
+                }
+                layout.getChildren().addAll(label, superlabel, cButton);
 
         }
 

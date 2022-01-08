@@ -7,18 +7,21 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import recorder.logRecorder;
 
 import java.net.URL;
 import java.util.*;
 
 public class controller implements Initializable {
-
+    public int howManyTries=0;
     @FXML
     public Label wordsInDictionary;
     @FXML
@@ -41,11 +44,16 @@ public class controller implements Initializable {
     public static valid game = new valid();
     public static dictionary.chooseBook book = new dictionary.chooseBook();
     @FXML
+    private VBox vbox;
+    @FXML
+    private MenuItem closeButton;
+    @FXML
     public ImageView imageView;
     @FXML
     public Label wordShow;
     public String valueOFWordShow;
     public void startGame(){
+        howManyTries=0;
         game = new valid();
         game.initialize(book.words);
         gamePoints.setText(String.valueOf(game.getPoints()));
@@ -79,6 +87,9 @@ public class controller implements Initializable {
     }
     @FXML
     private void exitapp(){
+        Stage stage = (Stage) vbox.getScene().getWindow();
+        // do what you have to do
+        stage.close();
         System.out.println("this should exit");
     }
 
@@ -158,6 +169,7 @@ public class controller implements Initializable {
     }
 
     public void checkPAndL(ActionEvent actionEvent) {
+        howManyTries++;
         Integer oldValuePoints= game.getPoints();
         int n = dropDownPlace.getValue();
 
@@ -171,13 +183,29 @@ public class controller implements Initializable {
             Integer newValuePoints = game.getPoints();
             if (newValuePoints > oldValuePoints) {
 
-                tmp[2 * n] = dropDownLetter.getValue();
-                valueOFWordShow = String.valueOf(tmp);
+                if(game.getSelectedWords().size() == 1){
+                    valueOFWordShow = game.getWord();
+                    valueOFWordShow.replaceAll(".(?=.)", "$0 ");
+//                    wordShow.setText(selectedWord);
+                    wrongWords.setText("You WIN");
+                    recorder.logRecorder recorder = new logRecorder(game.getWord(), "Human", howManyTries);
+                }
+                else {
+                    tmp[2 * n] = dropDownLetter.getValue();
+                    valueOFWordShow = String.valueOf(tmp);
+                }
             } else {
                 wrongCharacters += "c[" + dropDownPlace.getValue() + "]!=" + dropDownLetter.getValue() + ", ";
                 wrongWords.setText(wrongCharacters);
             }
             recalc();
+        }
+        if(game.getLifes()<=0){
+            valueOFWordShow = game.getWord();
+            valueOFWordShow.replaceAll(".(?=.)", "$0 ");
+            wordShow.setText(valueOFWordShow);
+            wrongWords.setText("You LOST");
+            recorder.logRecorder recorder = new logRecorder(game.getWord(), "Computer", howManyTries);
         }
 
     }
@@ -233,12 +261,21 @@ public class controller implements Initializable {
     public void showDictionary(ActionEvent event) {
         UI.showDataBox box = new showDataBox();
 
-        box.display("Word Details", " ",book., 1);
+        box.display("Word Details", " ",book.getDictinaryData(), 1);
     }
 
     public void showRounds(ActionEvent event) {
+        UI.showDataBox box = new showDataBox();
+
+        box.display("Round Details", " You can see the latest 5 games details",book.getDictinaryData(), 0);
     }
 
     public void showSolution(ActionEvent event) {
+        valueOFWordShow = game.getWord();
+        valueOFWordShow.replaceAll(".(?=.)", "$0 ");
+        wordShow.setText(valueOFWordShow);
+        wrongWords.setText("You LOST");
+        game.setLifes(0);
+        recorder.logRecorder recorder = new logRecorder(game.getWord(), "Computer", howManyTries);
     }
 }
