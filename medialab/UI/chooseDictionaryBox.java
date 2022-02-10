@@ -18,11 +18,10 @@ public class chooseDictionaryBox {
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
-        window.setMinWidth(250);
+        window.setMinWidth(300);
 
         Label label = new Label();
         label.setText(message);
-
         //Create 2 buttons
         TextField bookID = new TextField("Set book ID");
         Button search = new Button("Search");

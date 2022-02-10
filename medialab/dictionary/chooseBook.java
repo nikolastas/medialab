@@ -31,7 +31,11 @@ public class chooseBook{
             jsonBook json = new jsonBook();
             json.jsonresult(ID);
 //            System.out.println("the desc is: " + json.allBookDescription);
+            if(json.allBookDescription == null){
+                throw new NullPointerException("no desc found!");
+            }
             dict = new validBook();
+
             dict.replace(json.bookDescription, ID);
             System.out.println("replace desc with: " + dict.getWords());
             if (dict.limitations()) {

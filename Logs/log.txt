@@ -10,11 +10,11 @@ Computer
 ROMANCE
 Computer
 0
-19
-FAMILY
-Human
-2
-20
-TERROR
+24
+DEVILS
 Computer
 0
+25
+VICTORY
+Human
+4

@@ -1,17 +1,19 @@
 package dictionary;
-import java.io.*;
-import java.net.MalformedURLException;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.InputStream;
 import java.net.URL;
-import java.nio.charset.Charset;
-import javax.json.*;
 
 
 class jsonBook {
    public String ID;
    String allBookDescription;
    String[] bookDescription;
-   public void jsonresult(String bookID) {
+   public void jsonresult(String bookID) throws NullPointerException{
       ID=bookID;
+
       String stringUrl = "https://openlibrary.org/works/" + bookID.toString() + ".json";
       URL url = null;
       InputStream is = null;
@@ -26,14 +28,23 @@ class jsonBook {
       JsonObject obj = rdr.readObject();
       String results = null;
       try{
-          results = obj.getString("description");
+            try {
+               results = obj.getString("description");
+            }
+            catch (ClassCastException E){
+               JsonObject obj2 = obj.getJsonObject("description");
+               results = obj2.getString("value");
+            }
+            if(results.length()==0){
+               throw  new NullPointerException("no description found");
+            }
+         allBookDescription = results;
+         bookDescription = results.split("\s+");
       }
       catch (Exception e){
-         JsonObject obj2 = obj.getJsonObject("description");
-          results = obj2.getString("value");
+         System.out.println("no object found");
       }
-      allBookDescription = results;
-      bookDescription = results.split("\s+");
+
 
    }
 

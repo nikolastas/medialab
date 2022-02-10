@@ -63,6 +63,7 @@ public class validBook {
         }catch (Exception e){
             System.err.println(e);
             e.printStackTrace();
+            return false;
         }
 
         String [] newWords = new String[res.size()];
