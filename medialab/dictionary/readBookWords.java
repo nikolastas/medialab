@@ -11,6 +11,7 @@ public class readBookWords {
     public void readFile(String book) throws FileNotFoundException {
         List<String> res = new ArrayList<>();
 
+
         File myObj = new File("./Dictionaries/hangman_DICTIONARΥ - " + book + ".txt");
         try{
         Scanner myReader = new Scanner(myObj);
