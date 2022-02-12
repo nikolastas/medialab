@@ -26,13 +26,13 @@ public class validBook {
         Map<String, String> map = new HashMap<>();
         try{
             for(String word : words){
-                if (map.containsKey(word)){
+                if (!(map.containsKey(word))){
 
 //                    throw new InvalidCountExeception("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
 //                System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
 //                    if this would throw error the program would stop :(
 
-                }else {
+
                     if(word.length() < 6){
                         continue;
 //                        throw new InvalidRangeException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
@@ -60,8 +60,8 @@ public class validBook {
 //                System.out.println("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 20% OF DICT VALID WORDS HAVE 9 LETTERS");
 
             }
+
         }catch (Exception e){
-            System.err.println(e);
             e.printStackTrace();
             return false;
         }
@@ -69,6 +69,18 @@ public class validBook {
         String [] newWords = new String[res.size()];
         int c=0;
         for(String word: res){
+            try {
+                if (map.containsKey(word)) {
+                    throw new InvalidCountExeception("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR WORD FREQUENCY");
+                }
+                if(word.length()<6){
+                    throw new InvalidRangeException("THE DICTIONARY DOESNT MEET THE LIMITATIONS FOR 6 LETTERS WORDS");
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
             newWords[c]=word;
             c++;
         }
