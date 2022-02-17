@@ -24,7 +24,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Application">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#startGame" text="Strat" />
+                    <MenuItem mnemonicParsing="false" onAction="#startGame" text="Start" />
                         <MenuItem mnemonicParsing="false" onAction="#loadDictionary" text="Load" />
                         <MenuItem mnemonicParsing="false" onAction="#createDictionary" text="Create" />
                         <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#exitapp" text="Exit" />
