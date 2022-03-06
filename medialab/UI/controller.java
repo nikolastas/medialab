@@ -19,7 +19,7 @@ import recorder.logRecorder;
 import java.net.URL;
 import java.util.*;
 
-@SuppressWarnings("InstantiationOfUtilityClass")
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class controller implements Initializable {
     public int howManyTries=0;
     @FXML
