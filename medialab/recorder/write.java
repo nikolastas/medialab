@@ -22,8 +22,6 @@ public class write {
     public void createFileLine(File file, int line, String data) throws IOException{
         Path path = Path.of(file.getPath());
         List<String> lines = Files.readAllLines(path);
-//        System.out.println(lines);
-//        System.out.println("i should add "+line+" with data= "+data);
         lines.add(line,data);
 //        System.out.println(lines);
         Files.write(path, lines);
@@ -43,7 +41,7 @@ public class write {
             Path path = Paths.get(filename);
 //            URI uri = Objects.requireNonNull(this.getClass().getResource(filename)).toURI();
             List<String> lines = Files.readAllLines(path);
-            System.out.println("path= "+String.valueOf(path.toString()));
+            System.out.println("path= "+ path.toString());
             long lineCount;
             try (Stream<String> stream = Files.lines(path, StandardCharsets.UTF_8)) {
                 lineCount = stream.count();
@@ -60,13 +58,11 @@ public class write {
                     try {
                         line = max(line, Integer.valueOf(lines.get(i * 4)));
                     } catch (IndexOutOfBoundsException e) {
-                        continue;
+                        e.printStackTrace();
                     }
                 }
 
             }
-//            System.out.println("i should write to "+(line%5));
-//            System.out.println("or [] i should write to "+ line);
             try{
                 if(lineCount>=20) {
                     System.out.println("trying to modify file...");
@@ -83,15 +79,11 @@ public class write {
                     createFileLine(file, line+2, wi);
                     createFileLine(file, line+3, String.valueOf(t));
 
-//                    myWriter.write(line + 1 +"\n");
-//                    myWriter.write(wo +"\n");
-//                    myWriter.write(wi +"\n");
-//                    myWriter.write(t +"\n");
                 }
 
 
             }catch (Exception e){
-                System.out.println(e);
+
                 e.printStackTrace();
             }
 

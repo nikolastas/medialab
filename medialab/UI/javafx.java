@@ -12,7 +12,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class javafx extends Application  {
@@ -37,7 +36,7 @@ public class javafx extends Application  {
             closeProgram();
         });
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        List<String> l = new ArrayList<>();
+        List<String> l;
         l= List.of(new String[]{"Good", "Bad", "Ungly"});
         choiceBox.getItems().addAll(l);
         choiceBox.setValue("Good");
@@ -82,7 +81,7 @@ public class javafx extends Application  {
         GridPane.setConstraints(input, 0,3);
         Button btn = new Button("get data");
         btn.setOnAction(e -> {
-            isInt(input, input.getText());
+            isInt(input.getText());
         });
         GridPane.setConstraints(btn, 1,3);
         //Name Label
@@ -107,17 +106,6 @@ public class javafx extends Application  {
         GridPane.setConstraints(loginButton, 1,2);
 
         grid.getChildren().addAll(nameLabel, nameInput, passLabel, passInput, loginButton, input , btn);
-        //
-//        StackPane layout = new StackPane();
-//        layout.getChildren().add(button);
-//
-//        BorderPane borderPane = new BorderPane();
-//        borderPane.setTop(topMenu);
-//        borderPane.setLeft(leftMenu);
-//        borderPane.setBottom(layout);
-//        borderPane.setCenter(grid);
-
-
 
 
         Scene scene = new Scene(grid, 300, 250);
@@ -127,7 +115,7 @@ public class javafx extends Application  {
 
     }
 
-    private void isInt(TextField input, String text) {
+    private void isInt(String text) {
         try{
             int num = Integer.parseInt(text);
             System.out.println("you gave me integer: "+ num);

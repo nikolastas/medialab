@@ -62,6 +62,7 @@ public class controller implements Initializable {
         wrongWords.setText(wrongCharacters);
         valueOFWordShow = game.getWord().replaceAll("[a-zA-Z0-9]", "_ ");
         wordShow.setText(valueOFWordShow);
+        dropDownData();
         recalc();
 
     }
@@ -132,6 +133,8 @@ public class controller implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resource){
+        dropDownPlace.setValue(null);
+        dropDownLetter.setValue(null);
         wrongCharacters="";
         wrongWords.setText(wrongCharacters);
         book.initializeDictionary();
@@ -153,6 +156,8 @@ public class controller implements Initializable {
 
     }
     private void dropDownData() {
+        dropDownPlace.getItems().clear();
+        dropDownLetter.getItems().clear();
         Set<Character> letters_Set = new HashSet<>();
         Set<Integer> numbers_Set = new HashSet<>();
 
@@ -226,6 +231,7 @@ public class controller implements Initializable {
 
     }
     private void recalc() {
+
         wrongWords.setMaxWidth(120);
         wrongWords.setWrapText(true);
         tableView.setItems(getdata());
@@ -244,14 +250,20 @@ public class controller implements Initializable {
 
         Set<Character> letters_Set = new HashSet<>();
 
-
-
-        Integer i =dropDownPlace.getValue();
+        Integer i;
+        try{
+            i = dropDownPlace.getValue();
             for(String s: game.getSelectedWords()){
                 letters_Set.add(s.charAt(i));
-
-
             }
+        }catch (Exception e){
+            dropDownPlace.setValue(0);
+            i = 0;
+            for(String s: game.getSelectedWords()){
+                letters_Set.add(s.charAt(i));
+            }
+        }
+
 
 
         dropDownLetter.getItems().addAll(letters_Set);

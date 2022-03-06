@@ -48,7 +48,7 @@ public class showDataBox {
                 try{
 
                     List<String> lines = Files.readAllLines(path);
-                    int sizeOfLabel =10;
+                    int sizeOfLabel;
                     if(lines.size()>=20){
                         sizeOfLabel= 5;
                     }
@@ -68,7 +68,7 @@ public class showDataBox {
                     }
 
                 }catch (Exception e){
-                    System.out.println(e);
+
                     e.printStackTrace();
                 }
                 layout.getChildren().add( cButton);

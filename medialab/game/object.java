@@ -19,9 +19,9 @@ public class object {
         final int prime = 31;
         int result = 1;
         Character c = text;
-        result = prime * result+ ((c == null ) ? 0 : c.hashCode());
+        result = prime * result+ c.hashCode();
         Integer n = number;
-        result = prime * result+ ((n == null ) ? 0 : n.hashCode());
+        result = prime * result+ n.hashCode();
 //        result = ((x + y) << 234234) % 21354205;
         return result;
     }
