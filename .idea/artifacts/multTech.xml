@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="multTech">
+    <output-path>$PROJECT_DIR$/out/artifacts/multTech</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="multTech.jar">
+        <element id="module-output" name="multTech" />
+      </element>
+    </root>
+  </artifact>
+</component>

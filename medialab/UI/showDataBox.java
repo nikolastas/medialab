@@ -33,16 +33,17 @@ public class showDataBox {
         });
         switch (type) {
             case 1:
-                Label sizeletterwords = new Label("Words with 6 letters: ");
+                Label sizeletterwords = new Label("[%] Words with 6 letters: ");
                 Label val0 = new Label(String.valueOf(Data.get(0)));
-                Label nineletterwords = new Label("Words from 7 to 9 letters: ");
+                Label nineletterwords = new Label("[%] Words from 7 to 9 letters: ");
                 Label val1 = new Label(String.valueOf(Data.get(1)));
-                Label tenletterwords = new Label("Words with at least 10 letters: ");
+                Label tenletterwords = new Label("[%] Words with at least 10 letters: ");
                 Label val2 = new Label(String.valueOf(Data.get(2)));
                 layout.getChildren().addAll(label, sizeletterwords, val0, nineletterwords, val1, tenletterwords, val2, cButton );
+                break;
             case 0:
 
-                Path path = Paths.get("./Logs/log.txt");
+                Path path = Paths.get("./medialab/Logs/log.txt");
 //        ArrayList<String> lines = new ArrayList<>();
                 try{
 
@@ -71,7 +72,7 @@ public class showDataBox {
                     e.printStackTrace();
                 }
                 layout.getChildren().add( cButton);
-
+                break;
         }
 
 

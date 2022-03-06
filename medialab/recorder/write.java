@@ -29,7 +29,7 @@ public class write {
         Files.write(path, lines);
     }
     public void createAndWriteFile(String wo, String wi, Integer t){
-        String filename = "./Logs/log.txt";
+        String filename = "./medialab/Logs/log.txt";
         File file= new File(filename);
 
         try {

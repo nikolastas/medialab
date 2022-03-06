@@ -10,9 +10,6 @@ public class chooseBook{
     }
     public readBookWords reader;
     public void getDictionary(String ID) {
-//        System.out.println("please insert the ID dictionary of book, from https://openlibrary.org/");
-//        bookID.IdScanner();
-//        System.out.println("you gave me " + bookID.getID());
         try{
 
             reader = new readBookWords();
@@ -21,11 +18,11 @@ public class chooseBook{
 //            System.out.println("book already exists no need to create dictionary");
             words = reader.words;
         }catch(Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
-    private validBook dict;
-    public void createDictionary(String ID){
+
+    public void createDictionary(String ID) throws Exception{
         try {
             System.out.println("book dictionary is now being created");
             jsonBook json = new jsonBook();
@@ -34,7 +31,7 @@ public class chooseBook{
             if(json.allBookDescription == null){
                 throw new NullPointerException("no desc found!");
             }
-            dict = new validBook();
+            validBook dict = new validBook();
 
             dict.replace(json.bookDescription, ID);
             System.out.println("replace desc with: " + dict.getWords());
@@ -46,8 +43,10 @@ public class chooseBook{
             words = reader.words;
         }
         catch (Exception ex){
-            System.err.println(ex);
+
+
             ex.printStackTrace();
+            throw ex;
         }
     }
     public void dictionary()  {
@@ -79,7 +78,7 @@ public class chooseBook{
                 words = reader.words;
             }
             catch (Exception ex){
-                System.err.println(ex);
+
                 ex.printStackTrace();
             }
         }

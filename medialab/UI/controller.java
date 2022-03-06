@@ -72,7 +72,14 @@ public class controller implements Initializable {
         String s = creator.open("Dictionary name", "Type your Book ID to create a dictionary");
         System.out.println(s);
         if(s != null) {
-            book.createDictionary(s);
+            try {
+                book.createDictionary(s);
+            }
+            catch(Exception e) {
+                UI.AlertBox alertBox = new AlertBox();
+                alertBox.display("error", e.getMessage());
+            }
+
         }
         else{
             System.out.println("I cant create this dictionary you gave me NULL");
@@ -82,8 +89,14 @@ public class controller implements Initializable {
     public void loadDictionary(){
         UI.chooseDictionaryBox selector = new chooseDictionaryBox();
         String s = selector.open("Dictionary name", "Please type in your dictionary ID");
+        System.out.println(s);
+        if(s != null) {
+            book.getDictionary(s);
+        }
+        else{
+            System.out.println("I cant load this dictionary you gave me NULL");
+        }
 
-        book.getDictionary(s);
     }
     @FXML
     private void exitapp(){

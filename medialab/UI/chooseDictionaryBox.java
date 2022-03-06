@@ -12,14 +12,14 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class chooseDictionaryBox {
-    static String text="" ;
+    static String text ;
     public String open(String title, String message){
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(300);
-
+        window.setOnCloseRequest(e -> window.close());
         Label label = new Label();
         label.setText(message);
         //Create 2 buttons

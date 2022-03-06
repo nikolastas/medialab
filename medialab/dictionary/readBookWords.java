@@ -12,7 +12,7 @@ public class readBookWords {
         List<String> res = new ArrayList<>();
 
 
-        File myObj = new File("./Dictionaries/hangman_DICTIONARΥ - " + book + ".txt");
+        File myObj = new File("./medialab/Dictionaries/hangman_DICTIONARΥ - " + book + ".txt");
         try{
         Scanner myReader = new Scanner(myObj);
 
@@ -47,6 +47,7 @@ public class readBookWords {
     catch(Exception e){
         System.out.println( e);
         e.printStackTrace();
+        throw e;
     }
     }
 }

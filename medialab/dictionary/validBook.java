@@ -19,7 +19,7 @@ public class validBook {
         }
         words = res;
     }
-    public boolean limitations() {
+    public boolean limitations() throws Exception{
         int counter=0;
 
         List<String> res = new ArrayList<>() ;
@@ -63,7 +63,7 @@ public class validBook {
 
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            throw e;
         }
 
         String [] newWords = new String[res.size()];
@@ -79,7 +79,7 @@ public class validBook {
             }
             catch (Exception e){
                 e.printStackTrace();
-                return false;
+                throw e;
             }
             newWords[c]=word;
             c++;

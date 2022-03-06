@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="multTech:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/multTech_jar</output-path>
+    <root id="archive" name="multTech.jar">
+      <element id="module-output" name="multTech" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/medialab/javax.json-1.1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Programs/javaFX/javafx-sdk-17.0.1/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="library" level="application" name="JavaFX17" />
+    </root>
+  </artifact>
+</component>

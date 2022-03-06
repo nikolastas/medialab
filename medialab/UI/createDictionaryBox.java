@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class createDictionaryBox {
+public class createDictionaryBox  {
     static String text;
     public String open(String title , String message){
         Stage window = new Stage();
