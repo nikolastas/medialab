@@ -14,19 +14,19 @@ class jsonBook {
    public void jsonresult(String bookID) throws NullPointerException{
       ID=bookID;
 
-      String stringUrl = "https://openlibrary.org/works/" + bookID.toString() + ".json";
-      URL url = null;
+      String stringUrl = "https://openlibrary.org/works/" + bookID + ".json";
+      URL url;
       InputStream is = null;
       try {
          url = new URL(stringUrl);
          is = url.openStream();
       } catch (Exception e) {
-         System.out.println(e);
+         e.printStackTrace();
       }
       System.out.println(stringUrl);
       JsonReader rdr = Json.createReader(is);
       JsonObject obj = rdr.readObject();
-      String results = null;
+      String results ;
       try{
             try {
                results = obj.getString("description");

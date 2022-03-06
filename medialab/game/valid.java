@@ -2,13 +2,12 @@ package game;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 public class valid {
     private int lifes;
     private int charachters_found;
     private int points;
-    private game game = new game();
+    private final game game = new game();
     public valid(){
     this.lifes=6;
     this.charachters_found=0;
@@ -33,7 +32,6 @@ public void run(char c, int n){
     if((charachters_found >= 0 && charachters_found < game.getLen()) && lifes>0){
 
         System.out.println("Give me character...");
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("You gave: "+ c+ " for the "+n+" character");
         int p = game.refactorPoint(c, n);

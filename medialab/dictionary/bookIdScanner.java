@@ -5,9 +5,8 @@ public class bookIdScanner {
     private String ID;
     public void IdScanner(){
         Scanner myObj = new Scanner(System.in);
-        String bookID = myObj.nextLine();  // Read user input
 
-        ID = bookID;
+        ID = myObj.nextLine();
         
     }
     public String getID(){ return ID ;}

@@ -1,6 +1,5 @@
 package game;
-import java.util.*;
-import java.lang.*;
+
 public class object {
     private char text;
     private int number;

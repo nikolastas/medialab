@@ -4,7 +4,6 @@ import game.object;
 import game.valid;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -20,6 +19,7 @@ import recorder.logRecorder;
 import java.net.URL;
 import java.util.*;
 
+@SuppressWarnings("InstantiationOfUtilityClass")
 public class controller implements Initializable {
     public int howManyTries=0;
     @FXML
@@ -29,7 +29,7 @@ public class controller implements Initializable {
     @FXML
     public Label charactersFound;
     @FXML
-    public TableView tableView= new TableView<>();
+    public TableView<Object> tableView= new TableView<>();
     @FXML
     public ChoiceBox<Integer> dropDownPlace;
     @FXML
@@ -40,6 +40,7 @@ public class controller implements Initializable {
     public BorderPane pane = new BorderPane();
     @FXML
     public Label wrongWords;
+
     private String wrongCharacters;
     public static valid game = new valid();
     public static dictionary.chooseBook book = new dictionary.chooseBook();
@@ -74,10 +75,11 @@ public class controller implements Initializable {
         if(s != null) {
             try {
                 book.createDictionary(s);
+
             }
             catch(Exception e) {
-                UI.AlertBox alertBox = new AlertBox();
-                alertBox.display("error", e.getMessage());
+                e.printStackTrace();
+                AlertBox.display("error", e.getMessage());
             }
 
         }
@@ -91,7 +93,13 @@ public class controller implements Initializable {
         String s = selector.open("Dictionary name", "Please type in your dictionary ID");
         System.out.println(s);
         if(s != null) {
-            book.getDictionary(s);
+            try {
+                book.getDictionary(s);
+                startGame();
+            } catch (Exception e) {
+                e.printStackTrace();
+                AlertBox.display("error", e.getMessage());
+            }
         }
         else{
             System.out.println("I cant load this dictionary you gave me NULL");
@@ -106,8 +114,8 @@ public class controller implements Initializable {
         System.out.println("this should exit");
     }
 
-    public ObservableList<wordAndProp> getdata(){
-        ObservableList<UI.wordAndProp> data = FXCollections.observableArrayList(
+    public ObservableList<Object> getdata(){
+        ObservableList<Object> data = FXCollections.observableArrayList(
 //                new wordAndProp('c', 1, 0.0f)
         );
         HashMap<object, Float> map = game.getProp();
@@ -132,11 +140,7 @@ public class controller implements Initializable {
         wordShow.setText(valueOFWordShow);
         gamePoints.setText(String.valueOf(game.getPoints()));
 
-//        dropDownPlace = new ChoiceBox<>();
-//        dropDownLetter = new ChoiceBox<>();
         dropDownData();
-//        dropDownPlace.setOnAction(this::chooseDropDownLetter);
-//        dropDownLetter.setOnAction(this::chooseDropDownPlace);
         Rectangle2D rectangle2D = new Rectangle2D(0, 7, 102, 100);
         imageView.setViewport(rectangle2D);
         charactersFound.setText(String.valueOf(game.getCharachters_found()));
@@ -164,36 +168,36 @@ public class controller implements Initializable {
 
     }
 
-    public ArrayList<TableColumn> getColums(){
-        ArrayList<TableColumn> c = new ArrayList<>();
-        TableColumn<wordAndProp, String> nameColumn = new TableColumn<>("Character");
+    public ArrayList<TableColumn<Object, ?>> getColums(){
+        ArrayList<TableColumn<Object, ?>> c = new ArrayList<>();
+        TableColumn<Object, Object> nameColumn = new TableColumn<>("Character");
         nameColumn.setMinWidth(50);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Character"));
         c.add(nameColumn);
-        TableColumn<UI.wordAndProp, Integer> placeColumn = new TableColumn<>("Place");
+        TableColumn<Object, Object> placeColumn = new TableColumn<>("Place");
         placeColumn.setMinWidth(50);
         placeColumn.setCellValueFactory(new PropertyValueFactory<>("Place"));
         c.add(placeColumn);
-        TableColumn<UI.wordAndProp, Float> propColumn = new TableColumn<>("Probability");
+        TableColumn<Object, Object> propColumn = new TableColumn<>("Probability");
         propColumn.setMinWidth(50);
         propColumn.setCellValueFactory(new PropertyValueFactory<>("Prop"));
         c.add(propColumn);
         return c;
     }
 
-    public void checkPAndL(ActionEvent actionEvent) {
+    public void checkPAndL() {
         howManyTries++;
-        Integer oldValuePoints= game.getPoints();
+        int oldValuePoints= game.getPoints();
         int n = dropDownPlace.getValue();
 
         char[] tmp = valueOFWordShow.toCharArray();
         if(tmp[2*n] == dropDownLetter.getValue()){
-            UI.AlertBox alertBox = new AlertBox();
-            alertBox.display("wrong Character!", "You have already selected this character for that place and it is right!");
+//            UI.AlertBox alertBox = new AlertBox();
+            AlertBox.display("wrong Character!", "You have already selected this character for that place and it is right!");
         }
         else {
             game.run(dropDownLetter.getValue(), dropDownPlace.getValue());
-            Integer newValuePoints = game.getPoints();
+            int newValuePoints = game.getPoints();
             if (newValuePoints > oldValuePoints) {
 
                 if(game.getSelectedWords().size() == 1){
@@ -201,7 +205,6 @@ public class controller implements Initializable {
                     valueOFWordShow.replaceAll(".(?=.)", "$0 ");
 //                    wordShow.setText(selectedWord);
                     wrongWords.setText("You WIN");
-                    recorder.logRecorder recorder = new logRecorder(game.getWord(), "Human", howManyTries);
                 }
                 else {
                     tmp[2 * n] = dropDownLetter.getValue();
@@ -210,6 +213,7 @@ public class controller implements Initializable {
             } else {
                 wrongCharacters += "c[" + dropDownPlace.getValue() + "]!=" + dropDownLetter.getValue() + ", ";
                 wrongWords.setText(wrongCharacters);
+
             }
             recalc();
         }
@@ -218,21 +222,23 @@ public class controller implements Initializable {
             valueOFWordShow.replaceAll(".(?=.)", "$0 ");
             wordShow.setText(valueOFWordShow);
             wrongWords.setText("You LOST");
-            recorder.logRecorder recorder = new logRecorder(game.getWord(), "Computer", howManyTries);
         }
 
     }
-    private void recalc(){
-        tableView.setItems( getdata() );
+    private void recalc() {
+        wrongWords.setMaxWidth(120);
+        wrongWords.setWrapText(true);
+        tableView.setItems(getdata());
         gamePoints.setText(String.valueOf(game.getPoints()));
         wordShow.setText(valueOFWordShow);
         charactersFound.setText(String.valueOf(game.getCharachters_found()));
         wordsInDictionary.setText(String.valueOf(game.getSelectedWords().size()));
         Rectangle2D rectangle2D = new Rectangle2D(100* (6-game.getLifes()), 7, 102, 100);
         imageView.setViewport(rectangle2D);
+
     }
 
-    public void chooseDropDownLetter(ActionEvent event) {
+    public void chooseDropDownLetter() {
         System.out.println(dropDownPlace.getValue());
         dropDownLetter.getItems().clear();
 
@@ -251,39 +257,19 @@ public class controller implements Initializable {
         dropDownLetter.getItems().addAll(letters_Set);
     }
 
-    public void chooseDropDownPlace(ActionEvent event) {
-        System.out.println(dropDownLetter.getValue());
-        dropDownPlace.getItems().clear();
-
-        char w = dropDownLetter.getValue();
-        Set<Integer> numbers_Set = new HashSet<>();
-
-        for(int i=0; i<game.getSelectedWords().get(0).length() ; i++){
-            for(String s: game.getSelectedWords()){
-                if(w == s.charAt(i)){
-                    numbers_Set.add(i);
-                }
-
-
-            }
-        }
-        dropDownPlace.getItems().addAll(numbers_Set);
-
-    }
-
-    public void showDictionary(ActionEvent event) {
+    public void showDictionary() {
         UI.showDataBox box = new showDataBox();
 
         box.display("Word Details", " ",book.getDictinaryData(), 1);
     }
 
-    public void showRounds(ActionEvent event) {
+    public void showRounds() {
         UI.showDataBox box = new showDataBox();
 
         box.display("Round Details", " You can see the latest 5 games details",book.getDictinaryData(), 0);
     }
 
-    public void showSolution(ActionEvent event) {
+    public void showSolution() {
         valueOFWordShow = game.getWord();
         valueOFWordShow.replaceAll(".(?=.)", "$0 ");
         wordShow.setText(valueOFWordShow);

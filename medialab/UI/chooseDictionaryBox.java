@@ -28,7 +28,7 @@ public class chooseDictionaryBox {
 
         search.setOnAction(e ->{
             text = bookID.getText();
-            File myObj = new File("./Dictionaries/hangman_DICTIONARΥ - "+text+".txt");
+            File myObj = new File("./medialab/Dictionaries/hangman_DICTIONARΥ - "+text+".txt");
 
             if (myObj.exists()){
                 window.close();

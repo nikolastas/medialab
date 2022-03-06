@@ -16,15 +16,14 @@ public class readBookWords {
         try{
         Scanner myReader = new Scanner(myObj);
 
-        wordsData = Arrays.asList(new Float[]{0f, 0f, 0f});
+        wordsData = Arrays.asList(0f, 0f, 0f);
         while (myReader.hasNextLine()) {
             String data = myReader.nextLine();
 //                System.out.println(data);
             res.add(data);
-            String word = data;
-            if (word.length() == 6) {
+            if (data.length() == 6) {
                 wordsData.set(0, wordsData.get(0) + 1f);
-            } else if (word.length() <= 9) {
+            } else if (data.length() <= 9) {
                 wordsData.set(1, wordsData.get(1) + 1f);
             } else {
                 wordsData.set(2, wordsData.get(2) + 1f);
@@ -45,7 +44,7 @@ public class readBookWords {
         words = newWords;
     }
     catch(Exception e){
-        System.out.println( e);
+
         e.printStackTrace();
         throw e;
     }

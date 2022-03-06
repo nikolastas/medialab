@@ -5,7 +5,6 @@ import java.util.*;
 public class game{
     private Integer leng_of_dict;
     private String word;
-    private int points;
     private String[] words;// read from validBook
     public List<String> selectedWords = new ArrayList<>();
     public HashMap< object , Float> propability = new HashMap<>();
@@ -24,7 +23,6 @@ public class game{
     }
     public void initializePropabilities() {
 
-        float value;
         selectedWords= new ArrayList<>();
         //open file requirelectedWo
         for (String s : words) {
@@ -36,23 +34,14 @@ public class game{
     }
     public void calcPropabilities(){
         leng_of_dict=selectedWords.size();
-        for (int i=0; i<word.length() ; i++){ //https://stackoverflow.com/questions/196830/what-is-the-easiest-best-most-correct-way-to-iterate-through-the-characters-of-a
-//            char c = word.charAt(i);
-//            object myobject = new object(c, i);
-//            myobject.set(c, i);
-//            propability.put(myobject, 0.0f);
-//            System.out.println("I have setted "+propability.get(myobject)+ " to:"+ myobject.getText()+myobject.getNumber());
+        for (int i=0; i<word.length() ; i++){
+
             for(String s:selectedWords){
                 char c = s.charAt(i);
                 object myobject = new object(c, i);
                 myobject.set(c, i);
 
-                if (propability.get(myobject)!= null){
-                    propability.put(myobject, propability.get(myobject)+ (1.0f )/((float) leng_of_dict) );
-                }
-                else{
-                    propability.put(myobject,  (1.0f )/((float) leng_of_dict) );
-                }
+                propability.merge(myobject, (1.0f) / ((float) leng_of_dict), Float::sum);
 
             }
         }

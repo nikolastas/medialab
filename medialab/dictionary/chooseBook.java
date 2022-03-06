@@ -6,11 +6,15 @@ import java.util.List;
 public class chooseBook{
     bookIdScanner bookID = new bookIdScanner();
     public void initializeDictionary(){
-        getDictionary("OL31390631M");
+        try {
+            getDictionary("OL31390631M");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public readBookWords reader;
-    public void getDictionary(String ID) {
-
+    public void getDictionary(String ID) throws Exception{
+        System.out.println(ID);
         try{
 
             reader = new readBookWords();
@@ -20,6 +24,7 @@ public class chooseBook{
             words = reader.words;
         }catch(Exception e) {
             e.printStackTrace();
+            throw e;
         }
     }
 
